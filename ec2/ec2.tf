@@ -4,6 +4,12 @@
   instance_type = "${var.instance_type}"
   key_name = "tls_key"
   depends_on = ["aws_key_pair.tls_key"]
+  user_data = <<EOF 
+              #!/bin/bash
+              sudo yum update
+              sudo yum install -y httpd
+              service httpd start
+              EOF
 }
 
 output "public_ip" {
